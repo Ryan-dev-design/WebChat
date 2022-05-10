@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>修改</title>
+	<link rel="stylesheet" class="ui" href="/static/css/semantic/dist/semantic.css"/>
+    <link rel="stylesheet" class="ui" href="/static/css/body.css"/>
+    <link rel="stylesheet" class="ui" href="/static/css/chat.css"/>
+	<script type="text/javascript">
+
+		function vaildateForm() {
+			var password = document.forms["ModifyForm"]["password"].value;
+			var password2 = document.forms["ModifyForm"]["password2"].value;
+			var reg_filter=/^s*[.A-Za-z0-9_-]{3,20}s*$/;
+
+			if (password == null || password == ""){
+				alert("密码不能为空");
+				return false;
+			}
+			if (!reg_filter.test(password)){
+				alert("密码填写不正确,请重新填写！可使用的字符为（A-Z a-z 0-9 _ - .)长度不小于4个字符，不超过15个字符，注意不要使用空格");
+				return false;	
+			}
+			if (password2 == null || password2 == ""){
+				alert("重复密码不能为空");
+				return false;
+			}
+			if (password != password2){
+				alert("密码不匹配");
+				return false;
+			}
+			return true;
+		}
+		function reset() {
+			$('#password').val('');
+			$('#password2').val('');
+		}
+	</script>
+</head>
+<body>
+    <div class="ui fixed transparent inverted main menu">
+        <div class="container">
+            <div class="title item">
+                <b>{{cookieUser}}&nbsp</b> 
+            </div>
+
+            <div class="right menu">
+                <div class=" item green">
+                    &nbsp<b><a href="/add" class="item">添加好友</a></b>
+					&nbsp <b><a href='/create' class="item">创建聊天室</a></b>
+                    &nbsp<b><a href="/modify" class="item"> 修改个人信息 </a></b>
+                    &nbsp<b><a href="/logout" class="item"> 注销 </a></b>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%if Error%}
+    <div id="wrapper" style="display: block; z-index: 998;">
+        <div class="container">
+            <div id="login" class="ui two column relaxed grid">
+                <div class="column">
+                    <div class="ui fluid form segment">
+                        <h3 class="ui header">修改</h3>
+                            <h4><b>密码错误</b></h4> <br><br>
+                            <a href='/modify'> 返回 </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%else%}
+    <div id="wrapper" style="display: block; z-index: 998;">
+        <div class="container">
+              <div id="login" class="ui two column relaxed grid">
+                  <div class="column">
+                      <div class="ui fluid form segment">
+                          <h3 class="ui header ">修改密码</h3>
+                             <form name="loginForm"  action="/modify" onsubmit="return vaildateForm();" method="post">
+                                  <div class="field">
+                                      <label>旧密码</label>
+                                      <input name="password0" id="password0" type="password">
+                                  </div>
+                                  <div class="field">
+                                      <label>新密码</label>
+                                      <input name="password" id="password" type="password">
+                                  </div>
+                                  <div class="field">
+                                    <label>重复新密码</label>
+                                    <input name="password2" id="password2" type="password">
+                                </div>
+                                <input type="submit" value="提交" id="submit" class="ui primary login_submit button">
+                                &nbsp &nbsp &nbsp
+                                <input type="reset"  value="重置" id="reset" class="ui login_submit button">
+                                &nbsp &nbsp &nbsp
+                                <a href="/chatroom" class="ui login_submit button">放弃修改</a>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+        </div>
+    </div>
+    {%end%}
+</body>

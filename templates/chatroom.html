@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>聊天室</title>
+	<link rel="stylesheet" class="ui" href="/static/css/semantic/dist/semantic.min.css"/>
+    <link rel="stylesheet" class="ui" href="/static/css/body.css"/>
+    <link rel="stylesheet" class="ui" href="/static/css/chat.css"/>	
+</head>
+<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+<body>
+	<div class="ui fixed transparent inverted main menu">
+        <div class="container">
+            <div class="title item">
+                <b>{{cookieUser}}&nbsp</b> 
+            </div>
+
+            <div class="right menu">
+                <div class=" item green">
+                    &nbsp<b><a href="/add" class="item">添加好友</a></b>
+					&nbsp <b><a href='/create' class="item">创建聊天室</a></b>
+                    &nbsp<b><a href="/modify" class="item"> 修改个人信息 </a></b>
+                    &nbsp<b><a href="/logout" class="item"> 注销 </a></b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--room列表-->
+    <br /><br /><br /><br /><br /><br />
+	    {% for room in roomlist %}
+	    	<div class="column">
+			    <a href="/room/{{room[0]}}">
+		            <div class="ui segment">
+		                <h3>{{room[1]}}</h3> 
+                         <p>
+                        RoomID: {{room[0]}}&nbsp;
+		                创建者：{{room[4]}} &nbsp;
+		                创建时间：{{room[2]}}
+		                </p> 
+                         <p>
+                        群成员:{{cookieUser}},{{room[5]}}
+                        </p> 
+		             </div>
+			    </button> 
+		     </div>
+	    {% end %}
+        {%for room in private%}
+        <div class="column">
+            <a href="/room/{{room[0]}}">
+                <div class="ui segment">
+                    <h3>{{room[6]}}</h3> 
+                    <p>开始私聊</p>
+                 </div>
+            </button> 
+         </div>
+         {%end%}
+    </div>
+</body>
